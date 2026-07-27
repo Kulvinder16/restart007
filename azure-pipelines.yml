@@ -1,0 +1,14 @@
+trigger:
+- main
+- feature/*
+
+pool:
+  name: Default
+
+stages:
+  - stage: TerraformPlan
+    displayName: terraform init, validate and plan
+    jobs:
+      - job: Terraform
+        steps:
+          - 
