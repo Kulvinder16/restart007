@@ -18,7 +18,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
-            workingDirectory: '$(System.DefaultWorkingDirectory)\Parent Modules'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Modules'
             backendServiceArm: 'AZ-ADO-Connection'
             backendAzureRmResourceGroupName: 'rgstatefile'
             backendAzureRmStorageAccountName: 'stgstatefile2'
@@ -29,9 +29,11 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'validate'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Modules'
         
         - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
             command: 'plan'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Modules'
             environmentServiceNameAzureRM: 'AZ-ADO-Connection'
