@@ -5,12 +5,15 @@ trigger:
 pool:
   name: Default
 
+
+
 stages:
   - stage: TerraformPlan
     displayName: terraform init, validate and plan
     jobs:
       - job: Terraform
         steps:
+        - checkout: self
         - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
