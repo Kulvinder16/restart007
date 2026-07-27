@@ -18,6 +18,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Modules'
             backendServiceArm: 'AZ-ADO-Connection'
             backendAzureRmResourceGroupName: 'rgstatefile'
             backendAzureRmStorageAccountName: 'stgstatefile2'
