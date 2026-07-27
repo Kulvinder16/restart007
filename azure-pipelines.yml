@@ -22,7 +22,7 @@ stages:
             backendServiceArm: 'AZ-ADO-Connection'
             backendAzureRmResourceGroupName: 'rgstatefile'
             backendAzureRmStorageAccountName: 'stgstatefile2'
-            backendAzureRmContainerName: 'statecontiner'
+            backendAzureRmContainerName: 'statecontainer'
             backendAzureRmKey: 'restart.tfstate'
         
         - task: TerraformTask@5
