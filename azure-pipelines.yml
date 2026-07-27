@@ -11,4 +11,14 @@ stages:
     jobs:
       - job: Terraform
         steps:
-          - 
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'AZ-ADO-Connection'
+              backendAzureRmResourceGroupName: 'rgstatefile'
+              backendAzureRmStorageAccountName: 'stgstatefile2'
+              backendAzureRmContainerName: 'statecontainer'
+              backendAzureRmKey: 'restart.tfstate'
+
+
