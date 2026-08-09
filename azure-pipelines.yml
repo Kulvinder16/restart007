@@ -22,7 +22,7 @@ stages:
             backendServiceArm: 'AZ-ADO-Connection'
             backendAzureRmResourceGroupName: 'rgstatefile'
             backendAzureRmStorageAccountName: 'stgstatefile2'
-            backendAzureRmContainerName: 'statecontiner'
+            backendAzureRmContainerName: 'statecontainer'
             backendAzureRmKey: 'restart.tfstate'
         
         - task: TerraformTask@5
@@ -35,5 +35,29 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'plan'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Modules'
+            environmentServiceNameAzureRM: 'AZ-ADO-Connection'
+  - stage: TerraformApply
+    dependsOn: TerraformPlan
+    displayName: TerraformApply
+    jobs:
+      - job: TerraformApply
+        displayName: TerraformInittoApply
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+        steps:
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Modules'
+            backendServiceArm: 'AZ-ADO-Connection'
+            backendAzureRmResourceGroupName: 'rgstatefile'
+            backendAzureRmStorageAccountName: 'stgstatefile2'
+            backendAzureRmContainerName: 'statecontainer'
+            backendAzureRmKey: 'restart.tfstate'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
             workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Modules'
             environmentServiceNameAzureRM: 'AZ-ADO-Connection'
